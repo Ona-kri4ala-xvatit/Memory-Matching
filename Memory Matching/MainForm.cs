@@ -1,23 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace Memory_Matching
 {
     public partial class MainForm : Form
     {
-        public MainForm()
-        {
-            InitializeComponent();
-            AssignIconsToSquares();
-        }
-
         Random random = new Random();
         List<string> icons = new List<string>()
         {
@@ -28,13 +18,21 @@ namespace Memory_Matching
         Label firstClicked = null;
         Label secondClicked = null;
 
+        SoundPlayer soundPlayer;
+
+        public MainForm()
+        {
+            InitializeComponent();
+            AssignIconsToSquares();
+        }
+
         private void AssignIconsToSquares()
         {
-            foreach(Control control in tableLayoutPanel1.Controls) 
+            foreach (Control control in tableLayoutPanel1.Controls)
             {
                 Label iconLable = control as Label; //преобразование контрола в лэйбл
 
-                if(iconLable != null) //если преобразование удалось
+                if (iconLable != null) //если преобразование удалось
                 {
                     int randomNumber = random.Next(icons.Count); //выбирается рандомая "иконка"
                     iconLable.Text = icons[randomNumber]; //присваивается каждому лэйблу
@@ -53,20 +51,20 @@ namespace Memory_Matching
 
             Label clickedLabel = sender as Label; //преобразование объекта в лэйбл
 
-            if(clickedLabel != null) //если не удалось преобразовать, код ниже не будет выполнен
+            if (clickedLabel != null) //если не удалось преобразовать, код ниже не будет выполнен
             {
-                if(clickedLabel.ForeColor == Color.Black) //если цвет лэйбла черный значит иконка выбрана
+                if (clickedLabel.ForeColor == Color.Black) //если цвет лэйбла черный значит иконка выбрана
                 {
                     return;
                 }
 
-                if(firstClicked == null) //иконка еще не выбрана
+                if (firstClicked == null) //иконка еще не выбрана
                 {
                     firstClicked = clickedLabel; //есть первое нажатие
                     firstClicked.ForeColor = Color.Black; //меняем цвет на черный
                     return;
                 }
-                
+
                 secondClicked = clickedLabel;
                 secondClicked.ForeColor = Color.Black;
 
@@ -96,13 +94,13 @@ namespace Memory_Matching
 
         private void CheckForWinner()
         {
-            foreach(Control control in tableLayoutPanel1.Controls)
+            foreach (Control control in tableLayoutPanel1.Controls)
             {
                 Label iconLabel = control as Label;
 
-                if(iconLabel != null)
+                if (iconLabel != null)
                 {
-                    if(iconLabel.ForeColor == iconLabel.BackColor)
+                    if (iconLabel.ForeColor == iconLabel.BackColor)
                     {
                         return;
                     }
@@ -111,7 +109,12 @@ namespace Memory_Matching
 
             MessageBox.Show("You matched all the icons!", "Congratulations!");
             Close();
+        }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            soundPlayer = new SoundPlayer("web-design-technology-background.wav");
+            soundPlayer.Play();
         }
     }
 }
