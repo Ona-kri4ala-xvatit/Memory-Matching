@@ -19,12 +19,14 @@ namespace Memory_Matching
         }
 
         Random random = new Random();
-
         List<string> icons = new List<string>()
         {
             "!", "!", "N", "N", ",", ",", "k", "k",
             "b", "b", "v", "v", "w", "w", "z", "z"
         };
+
+        Label firstClicked = null;
+        Label secondClicked = null;
 
         private void AssignIconsToSquares()
         {
@@ -44,6 +46,11 @@ namespace Memory_Matching
 
         private void label_Click(object sender, EventArgs e)
         {
+            if (timer1.Enabled)
+            {
+                return;
+            }
+
             Label clickedLabel = sender as Label; //преобразование объекта в лэйбл
 
             if(clickedLabel != null) //если не удалось преобразовать, код ниже не будет выполнен
@@ -52,8 +59,37 @@ namespace Memory_Matching
                 {
                     return;
                 }
-                clickedLabel.ForeColor = Color.Black; //значок не был выбран, поэтому меняем цвет лэйбла на черный
+
+                if(firstClicked == null) //иконка еще не выбрана
+                {
+                    firstClicked = clickedLabel; //есть первое нажатие
+                    firstClicked.ForeColor = Color.Black; //меняем цвет на черный
+                    return;
+                }
+                
+                secondClicked = clickedLabel;
+                secondClicked.ForeColor = Color.Black;
+
+                if(firstClicked.Text == secondClicked.Text)
+                {
+                    firstClicked = null;
+                    secondClicked = null;
+                    return;
+                }
+
+                timer1.Start();
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Stop();
+
+            firstClicked.ForeColor = firstClicked.BackColor;
+            secondClicked.ForeColor = secondClicked.BackColor;
+
+            firstClicked = null;
+            secondClicked = null;
         }
     }
 }
