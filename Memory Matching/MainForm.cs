@@ -31,13 +31,28 @@ namespace Memory_Matching
             foreach(Control control in tableLayoutPanel1.Controls) 
             {
                 Label iconLable = control as Label; //преобразование контрола в лэйбл
+
                 if(iconLable != null) //если преобразование удалось
                 {
                     int randomNumber = random.Next(icons.Count); //выбирается рандомая "иконка"
                     iconLable.Text = icons[randomNumber]; //присваивается каждому лэйблу
-                    //iconLable.ForeColor = iconLable.BackColor; //скрываем иконку
+                    iconLable.ForeColor = iconLable.BackColor; //скрываем иконку
                     icons.RemoveAt(randomNumber); //удаляем из списка иконку (чтобы не повторялись много раз)
                 }
+            }
+        }
+
+        private void label_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label; //преобразование объекта в лэйбл
+
+            if(clickedLabel != null) //если не удалось преобразовать, код ниже не будет выполнен
+            {
+                if(clickedLabel.ForeColor == Color.Black) //если цвет лэйбла черный значит иконка выбрана
+                {
+                    return;
+                }
+                clickedLabel.ForeColor = Color.Black; //значок не был выбран, поэтому меняем цвет лэйбла на черный
             }
         }
     }
