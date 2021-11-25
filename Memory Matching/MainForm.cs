@@ -11,8 +11,10 @@ namespace Memory_Matching
         Random random = new Random();
         List<string> icons = new List<string>()
         {
-            "!", "!", "N", "N", ",", ",", "k", "k",
-            "b", "b", "v", "v", "w", "w", "z", "z"
+            "!", "!", "N", "N", "$", "$", "j", "j",
+            "b", "b", "v", "v", "w", "w", "Y", "Y"
+            //"L", "L", "T", "T", "Z", "Z", "h", "h",
+            //"%", "%", "@", "@", "$", "$"
         };
 
         Label firstClicked = null;
@@ -122,6 +124,6 @@ namespace Memory_Matching
 
             MessageBox.Show("You matched all the icons!", "Congratulations!");
             Close();
-        }
+        }  
     }
 }
