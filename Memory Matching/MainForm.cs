@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Media;
+using System.Threading.Tasks;
 
 namespace Memory_Matching
 {
@@ -18,11 +19,18 @@ namespace Memory_Matching
         Label firstClicked = null;
         Label secondClicked = null;
 
-        SoundPlayer soundPlayer;
+        //SoundPlayer backgroundSound;
+        SoundPlayer clickSound;
+        SoundPlayer matchingCard;
 
         public MainForm()
         {
             InitializeComponent();
+            //backgroundSound = new SoundPlayer("web-design-technology-background.wav");
+            //backgroundSound.Play();
+            
+            clickSound = new SoundPlayer("click.wav");
+            matchingCard = new SoundPlayer("matching card.wav");
             AssignIconsToSquares();
         }
 
@@ -44,6 +52,8 @@ namespace Memory_Matching
 
         private void label_Click(object sender, EventArgs e)
         {
+            
+
             if (timer1.Enabled)
             {
                 return;
@@ -53,25 +63,28 @@ namespace Memory_Matching
 
             if (clickedLabel != null) //если не удалось преобразовать, код ниже не будет выполнен
             {
+                clickSound.Play();
                 if (clickedLabel.ForeColor == Color.Black) //если цвет лэйбла черный значит иконка выбрана
-                {
+                {                
                     return;
                 }
 
                 if (firstClicked == null) //иконка еще не выбрана
                 {
+                    
                     firstClicked = clickedLabel; //есть первое нажатие
                     firstClicked.ForeColor = Color.Black; //меняем цвет на черный
                     return;
                 }
-
+                
                 secondClicked = clickedLabel;
                 secondClicked.ForeColor = Color.Black;
-
+                
                 CheckForWinner();
 
                 if (firstClicked.Text == secondClicked.Text)
-                {
+                {                
+                    matchingCard.Play();
                     firstClicked = null;
                     secondClicked = null;
                     return;
@@ -113,8 +126,9 @@ namespace Memory_Matching
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            soundPlayer = new SoundPlayer("web-design-technology-background.wav");
-            soundPlayer.Play();
+            
+
+
         }
     }
 }
