@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Memory_Matching.Properties;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Media;
@@ -20,7 +21,6 @@ namespace Memory_Matching
         Label firstClicked = null;
         Label secondClicked = null;
 
-        //SoundPlayer backgroundSound;
         SoundPlayer clickSound;
         SoundPlayer matchingCard;
         SoundPlayer matchingError;
@@ -28,12 +28,13 @@ namespace Memory_Matching
         public MainForm()
         {
             InitializeComponent();
-            //backgroundSound = new SoundPlayer("web-design-technology-background.wav");
-            //backgroundSound.Play();
 
-            clickSound = new SoundPlayer("click.wav");
-            matchingCard = new SoundPlayer("matching card.wav");
-            matchingError = new SoundPlayer("matching error.wav");
+            clickSound = new SoundPlayer(Resources.click);
+            matchingCard = new SoundPlayer(Resources.matching_card);
+            matchingError = new SoundPlayer(Resources.matching_error);
+            //clickSound = new SoundPlayer("click.wav");
+            //matchingCard = new SoundPlayer("matching card.wav");
+            //matchingError = new SoundPlayer("matching error.wav");
 
             AssignIconsToSquares();
         }
