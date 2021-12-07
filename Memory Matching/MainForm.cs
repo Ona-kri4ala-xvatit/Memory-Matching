@@ -32,9 +32,6 @@ namespace Memory_Matching
             clickSound = new SoundPlayer(Resources.click);
             matchingCard = new SoundPlayer(Resources.matching_card);
             matchingError = new SoundPlayer(Resources.matching_error);
-            //clickSound = new SoundPlayer("click.wav");
-            //matchingCard = new SoundPlayer("matching card.wav");
-            //matchingError = new SoundPlayer("matching error.wav");
 
             AssignIconsToSquares();
         }

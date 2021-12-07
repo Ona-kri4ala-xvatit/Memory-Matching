@@ -92,7 +92,6 @@
     <None Include="Resources\click.wav" />
     <None Include="Resources\matching error.wav" />
     <Content Include="Logo.ico" />
-    <Content Include="Seagate_Logo.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\" />
